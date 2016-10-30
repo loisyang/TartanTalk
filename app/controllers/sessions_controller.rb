@@ -8,9 +8,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(user_params)
-    user_google = User.from_omniauth(env["omniauth.auth"])
-    if user_google
+    user = User.from_omniauth(env["omniauth.auth"])
+    if user === nil 
+      user = User.find_by(user_params)
+    end 
+    if user
       session[:user_id] = user.id
       redirect_to root_path
     elsif user
@@ -26,7 +28,7 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-  private
+  #private
 
     def user_params
       params.require(:user).permit(:username)
