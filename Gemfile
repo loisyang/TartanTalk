@@ -25,6 +25,12 @@ gem "omniauth-google-oauth2"
 
 gem "listen"
 
+gem 'will_paginate', '3.0.7'
+gem 'simple_form', '3.1.0'
+gem 'nested_form', '0.3.2'
+gem 'validates_timeliness', '3.0.14'
+gem 'cancancan', '1.9.2'
+
 
 
 group :production do 

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
  # root to: "home#show"
   root "welcome#about"
+
+  get '/edit', to: "users#edit"
   
   get '/signup', to: "registrations#new"
   post '/signup', to: "registrations#create"
