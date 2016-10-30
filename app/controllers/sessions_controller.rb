@@ -9,7 +9,11 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(user_params)
-    if user
+    user_google = User.from_omniauth(env["omniauth.auth"])
+    if user_google
+      session[:user_id] = user.id
+      redirect_to root_path
+    elsif user
       session[:user_id] = user.id
       redirect_to chatrooms_path
     else
