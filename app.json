@@ -1,0 +1,11 @@
+{
+  "name": "TartanTalk",
+  "description": "A chat application for CMU students and CaPS",
+  "repository": "",
+  "keywords": ["CMU", "CaPS", "chat"],
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  },
+  "addons": ["heroku-redis"]
+}
