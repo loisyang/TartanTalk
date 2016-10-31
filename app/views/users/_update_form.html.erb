@@ -1,21 +1,29 @@
+<%= render partial: 'layouts/flash_errors'%>
 <div class="row">
-<%= form_for @current_user, url: {action: "edit"}, html: {class: "nifty_form"} do |f| %>
+  <div class="small-8 columns">
+    <%= simple_form_for @user, html: { class: 'form-horizontal' } do |f| %>
   <fieldset>
     <legend><%= controller.action_name.capitalize %> User</legend>
 
-     <% if logged_in? %>
 
-    <%= f.text_field :username  %>
-     <%= check_box_tag(:active)  %>
+      <%= f.input :anonymous, as: :boolean, checked_value: true, unchecked_value: false, label: "Anonymous" %>
 
-     <% end %>
+      <%= f.input :active, as: :boolean, checked_value: false, unchecked_value: true, label: "Delete Account" %>
+
+      <%= f.input :role, collection: User::ROLES, input_html: {class: "avg"}  %>
+
 
 
       <div class="form-actions">
-        <%= f.submit nil, :class => 'button radius' %>
+        <%= f.submit 'Update Account', :class => 'button radius' %>
         <%= link_to 'Cancel', @user, :class => 'button alert radius' %>
       </div>
       
   </fieldset>
 <% end %>
+
+  </div>
 </div>
+
+
+  

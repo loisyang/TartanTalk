@@ -11,17 +11,18 @@ Rails.application.routes.draw do
 
   get '/edit', to: "users#edit"
   
-  get '/signup', to: "registrations#new"
-  post '/signup', to: "registrations#create"
+  get '/signup', to: "users#new"
+  post '/signup', to: "users#create"
 
   get 'login', to: "sessions#new"
   post '/login', to: "sessions#create" 
   delete '/logout', to: "sessions#destroy"
 
-  get 'users/:id', to: "users#show", as: "profile"
-
   resources :chatrooms, param: :slug
   resources :messages
+  resources :users
+  
+  get 'users/:id', to: "users#show", as: "profile"
   
   # Serve websocket cable requests in-process
   mount ActionCable.server => '/cable'

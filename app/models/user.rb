@@ -3,7 +3,15 @@ class User < ApplicationRecord
   has_many :messages
   has_many :chatrooms, through: :messages
 
-  validates :username, presence: false, uniqueness: true
+  validates :username, presence: false, uniqueness: false
+  #validates :role, inclusion: { in: %w[admin professional peer student], message: "is not a recognized role in system" }
+
+  # Scopes
+  scope :active,       -> { where(active: true) }
+  scope :inactive,     -> { where(active: false) }
+  scope :by_role,      -> { order(:role) }
+  scope :alphabetical, -> { order(:username) }
+  scope :staff,    -> { where.not(role: 'student') }
 
    ROLES = [['Administrator', :admin],['Professional Counselor', :professional],['Peer Counselor', :peer],['Student',:student]]
 
@@ -14,6 +22,9 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      user.active = true 
+      user.anonymous = false
+      user.username = "user-#{ SecureRandom.hex(10)}" 
       user.save!
     end
 end
